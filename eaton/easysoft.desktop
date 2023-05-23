@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=easysoft
+Comment=easysoft
+Exec=xterm
+Icon=/root/Pictures/easy-logo-500x500.jpg
+Path=
+Terminal=false
+StartupNotify=false

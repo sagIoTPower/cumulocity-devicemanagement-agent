@@ -1,10 +1,12 @@
 #!/bin/bash
 DOCKER_FILE_PATH=docker/Dockerfile
 DOCKER_IMAGE_NAME=c8ydm-image
+INSTALL_VNC=1
+
 #DOCKER_CONTAINER_NAME=c8ydm
 # construct build args from env
 function env_build_arg() {
-    BUILD_ARG_LIST=$(grep -oP '^ARG .*(?==)' "$DOCKER_FILE_PATH" | cut -d' ' -f2-)
+    BUILD_ARG_LIST=$(ggrep -oP '^ARG .*(?==)' "$DOCKER_FILE_PATH" | cut -d' ' -f2-)
     BUILD_ARG_ARG=''
     for BUILD_ARG in $BUILD_ARG_LIST
     do
@@ -28,11 +30,12 @@ if [ "${USE_CERTS:-}" = 1 ]
 then
     docker run --env-file use_certs.env \
            --rm $INTERACTIVITY_ARG \
-           -v /var/run/docker.sock:/var/run/docker.sock $DOCKER_IMAGE_NAME
+           -v /var/run/docker.sock:/var/run/docker.sock  $DOCKER_IMAGE_NAME
 else
     docker run --env-file <(env | grep C8YDM) \
            --rm $INTERACTIVITY_ARG \
-           -v /var/run/docker.sock:/var/run/docker.sock $DOCKER_IMAGE_NAME
+           -v /var/run/docker.sock:/var/run/docker.sock \
+           -v /Users/ck/.cumulocity:/root/.cumulocity/ $DOCKER_IMAGE_NAME
 fi
 
 

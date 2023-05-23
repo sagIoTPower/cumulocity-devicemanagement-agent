@@ -13,7 +13,8 @@ RUN apt-get update \
     openssh-server \
     curl \
     gpg \
-    lsb-release
+    lsb-release \
+    apt-utils
 
 #
 # Install Docker CE CLI
@@ -86,5 +87,9 @@ RUN if [ "$CLEAN_PACKAGES" = "1" ]; then \
         libjpeg62-turbo-dev \
         libfreetype6-dev; \
     fi
+
+# Create desktop entry for Eaton easysoft
+COPY ./eaton/easy-logo-500x500.jpg /root/Pictures/easy-logo-500x500.jpg
+COPY ./eaton/easysoft.desktop /root/Desktop/easysoft.desktop
 
 CMD scripts/start_docker.sh
